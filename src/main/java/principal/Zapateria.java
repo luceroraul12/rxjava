@@ -28,4 +28,8 @@ public abstract class Zapateria {
     public void setTipo(TipoZapateria tipo) {
         this.tipo = tipo;
     }
+
+    public void setMarcas(List<String> marcas) {
+        this.marcas = marcas;
+    }
 }
