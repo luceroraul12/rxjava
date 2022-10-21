@@ -22,16 +22,18 @@ public abstract class Zapateria {
      */
     public Zapateria(Comunicador comunicador) {
         this.comunicador = comunicador;
-        comunicador.getDisparador().subscribe(
+
+        Disposable disposable = comunicador.getDisparador().subscribe(
                 respuesta -> {
                     if (respuesta) {
                         System.out.println("tipo de zapateria:\t"+tipo+"\tmarcas disponibles:\t"+marcas);
                     } else {
                         comunicador.getRecibidorDeDatos(). onNext(marcas);
                     }
-                }
+                },
+                error -> {},
+                () -> System.out.println("zapateria:\t"+tipo+"\t CERRADA")
         );
-
 
     }
 

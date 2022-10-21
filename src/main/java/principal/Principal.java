@@ -1,5 +1,8 @@
 package principal;
 
+import io.reactivex.rxjava3.core.Observable;
+import io.reactivex.rxjava3.disposables.Disposable;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,14 +15,12 @@ public class Principal {
         Zapateria eleganciaZapateria = new EleganciaZapateria(comunicador);
         Zapateria escolarZapateria = new EscolarZapateria(comunicador);
         List<String> todasLasMarcas = new ArrayList<>();
-
-        comunicador.getRecibidorDeDatos().subscribe(
-                todasLasMarcas::addAll
-        );
+        Disposable subscribe = comunicador.getRecibidorDeDatos().subscribe(todasLasMarcas::addAll);
+//        devuelve zapaterias especifica
         comunicador.getDisparador().onNext(true);
-        System.out.println();
+//        devuelve todas las marcas trabajadas
         comunicador.getDisparador().onNext(false);
         System.out.println("Marcas disponibles entre todos los locales: "+ todasLasMarcas);
-
+        comunicador.getDisparador().onComplete();
     }
 }
